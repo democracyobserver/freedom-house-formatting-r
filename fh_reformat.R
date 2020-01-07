@@ -6,12 +6,12 @@
 ###################   Freedom House   ####################
 ##########################################################
 
-cd("/Users/nrdavis/Dropbox/political.science/data/Freedom House")
+setwd("~/Freedom House") # change this to point to a reasonable working directory
 
 ###################   LOAD  ##############################
 
 # ensure required packages are installed
-list.of.packages <- c("countrycode", "gdata", "reshape")
+list.of.packages <- c("countrycode", "gdata", "reshape", "car")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
@@ -22,11 +22,18 @@ rm(list=c("list.of.packages", "new.packages"))
 
 ####################  CODE  ##############################
 
-# load spreadsheet
-fh <- read.xls("FH_Country_and_Territory_Ratings_and_Statuses_1972-2016.xls", sheet=2, header=F, skip=1, na.strings=c("-"), stringsAsFactors=F)
+# load spreadsheet -- see ReadMe; you can change the "location" as needed
+location <- "Country_and_Territory_Ratings_and_Statuses_FIW1973-2019.xls"
+fh <- read.xls(location, 
+	sheet=2, # get the ratings, statuses tab
+	header=FALSE, # source formatting precludes using a header
+	skip=1, # skip the first line
+	na.strings=c("-"), 
+	stringsAsFactors=F)
 
 # reformat years - note that 1982 is combined with 1981, and will be added later
-fh[1,2:ncol(fh)] <- sort(rep(c(1972:1981, 1983:2016), times=3))
+fh[1,2:ncol(fh)] <- sort(rep(c(1972:1981, 1983:2018), times=3))
+# note that you will need to change the end year in the above line should you get a more recent version of the data
 
 # reformat names, this will make sense later
 names(fh)[1] <- "country.name"
@@ -66,7 +73,7 @@ fhscores$fh.score.rev <- 8-fhscores$fh.score
 fhscores$fh.score.rstd <- scale(fhscores$fh.score.rev)
 
 # recodes and reorders
-fhscores$status <- factor(recode(as.character(fhscores$status), "'F'=3; 'PF'=2; 'NF'=1"), levels=1:3, labels=c("Not Free", "Partly Free", "Free"))
+fhscores$status <- factor(car::recode(as.character(fhscores$status), "'F'=3; 'PF'=2; 'NF'=1"), levels=1:3, labels=c("Not Free", "Partly Free", "Free"))
 
 # 1982
 tmp <- fhscores[which(fhscores$year == 1981),]
@@ -79,5 +86,4 @@ fhscores <- fhscores[order(fhscores$country.name, fhscores$year),c(7,6,1,2,3,4,8
 attr(fhscores, "variable.labels") <- c("ISO character ID", "COW numeric ID", "Country name", "Year", "Civil liberties score", "Political rights score", "Combined score (mean)", "Freedom status", "Combined score, reversed", "Combined score, reversed and standardized")
 
 # write out
-writeLines(codebook(fhscores), con="FH Scores Codebook.txt")
 save(fhscores, file="fhscores.rda")
