@@ -82,6 +82,13 @@ fhscores <- rbind(fhscores, tmp)
 
 fhscores <- fhscores[order(fhscores$country.name, fhscores$year),c(7,6,1,2,3,4,8,5,9,10)]
 
+# make sure that divided countries are represented correctly
+# NOTE: may have implications for merging with other data!
+fhscores$cown[which(fhscores$country.name == "Germany, W. ")] <- 260
+fhscores$cown[which(fhscores$country.name == "Germany, E. ")] <- 265
+fhscores$cown[which(fhscores$country.name == "Yemen, N.")] <- 678
+fhscores$cown[which(fhscores$country.name == "Yemen, S.")] <- 680
+
 # variable labels
 attr(fhscores, "variable.labels") <- c("ISO character ID", "COW numeric ID", "Country name", "Year", "Civil liberties score", "Political rights score", "Combined score (mean)", "Freedom status", "Combined score, reversed", "Combined score, reversed and standardized")
 
