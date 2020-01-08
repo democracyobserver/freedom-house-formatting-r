@@ -85,5 +85,8 @@ fhscores <- fhscores[order(fhscores$country.name, fhscores$year),c(7,6,1,2,3,4,8
 # variable labels
 attr(fhscores, "variable.labels") <- c("ISO character ID", "COW numeric ID", "Country name", "Year", "Civil liberties score", "Political rights score", "Combined score (mean)", "Freedom status", "Combined score, reversed", "Combined score, reversed and standardized")
 
+# fix rownames
+rownames(fhscores) <- 1:nrow(fhscores)
+
 # write out
 save(fhscores, file="fhscores.rda")
