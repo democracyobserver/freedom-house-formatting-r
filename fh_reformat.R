@@ -94,7 +94,7 @@ fhscores$cown[which(fhscores$country.name %in% c("Vietnam",  "Vietnam, N."))] <-
 attr(fhscores, "variable.labels") <- c("ISO character ID", "COW numeric ID", "Country name", "Year", "Civil liberties score", "Political rights score", "Combined score (mean)", "Freedom status", "Combined score, reversed", "Combined score, reversed and standardized")
 
 # fix rownames
-rownames(fhscores) <- 1:nrow(fhscores)
+rownames(fhscores) <- seq_len(nrow(fhscores))
 
 # write out
 save(fhscores, file="fhscores.rda")
