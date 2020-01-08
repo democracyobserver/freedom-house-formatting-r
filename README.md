@@ -19,5 +19,5 @@ The resulting data frame can be merged with other data using country-year identi
 <tr><td style="text-align:left">8</td><td>status</td><td>Freedom status</td></tr>
 <tr><td style="text-align:left">9</td><td>fh.score.rev</td><td>Combined score, reversed</td></tr>
 <tr><td style="text-align:left">10</td><td>fh.score.rstd</td><td>Combined score, reversed and standardized</td></tr>
-<tr><td colspan="3" style="border-bottom: 1px solid black"></td></tr><tr><td colspan="3" style="text-align:left">Dataframe with 9635 observations.</td></tr>
+<tr><td colspan="3" style="border-bottom: 1px solid black"></td></tr><tr><td colspan="3" style="text-align:left">Dataframe with 8428 observations.</td></tr>
 </table>
