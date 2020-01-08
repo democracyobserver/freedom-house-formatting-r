@@ -82,6 +82,9 @@ fhscores <- rbind(fhscores, tmp)
 
 fhscores <- fhscores[order(fhscores$country.name, fhscores$year),c(7,6,1,2,3,4,8,5,9,10)]
 
+# remove rows which do not appear in the freedom house data (for various reasons)
+fhscores <- fhscores[-which(is.na(fhscores$fh.score)),]
+
 # make sure that divided countries are represented correctly
 # NOTE: may have implications for merging with other data!
 fhscores$cown[which(fhscores$country.name == "Germany, W. ")] <- 260
