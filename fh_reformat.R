@@ -91,7 +91,10 @@ fhscores$cown[which(fhscores$country.name == "Germany, W. ")] <- 260
 fhscores$cown[which(fhscores$country.name == "Germany, E. ")] <- 265
 fhscores$cown[which(fhscores$country.name == "Yemen, N.")] <- 678
 fhscores$cown[which(fhscores$country.name == "Yemen, S.")] <- 680
-fhscores$cown[which(fhscores$country.name %in% c("Vietnam",  "Vietnam, N."))] <- 816
+fhscores$cown[which(fhscores$country.name %in% c("Vietnam",  "Vietnam, N."))] <- 817
+# Swaziland name change
+fhscores$cown[which(fhscores$country.name == "Eswatini")] <- 572
+fhscores$iso3c[which(fhscores$country.name == "Eswatini")] <- "SWZ"
 
 # variable labels
 attr(fhscores, "variable.labels") <- c("ISO character ID", "COW numeric ID", "Country name", "Year", "Civil liberties score", "Political rights score", "Combined score (mean)", "Freedom status", "Combined score, reversed", "Combined score, reversed and standardized")
